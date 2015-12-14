@@ -21,8 +21,8 @@ namespace app.territory {
         config: {
           url: '/territory',
           templateUrl: 'app/territory/territory.html',
-          //controller: 'TerritoryController',
-          //`controllerAs: 'vm',
+          controller: 'TerritoryController',
+          controllerAs: 'vm',
           title: 'territory',
           settings: {
             nav: 1,
