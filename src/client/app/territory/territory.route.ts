@@ -29,6 +29,20 @@ namespace app.territory {
             content: '<i class="fa fa-territory"></i> Territory'
           }
         }
+      },
+      {
+        state: 'territoryDetail',
+        config: {
+          url: '/territory/:id',
+          templateUrl: 'app/territory/territory.detail.html',
+          controller: 'TerritoryDetailController',
+          controllerAs: 'vm',
+          title: 'territory',
+          settings: {
+            nav: 1,
+            content: '<i class="fa fa-territory"></i> Territory Detail'
+          }
+        }
       }
     ];
   }

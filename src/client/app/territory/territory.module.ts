@@ -3,5 +3,7 @@ namespace app.territory {
 
   angular.module('app.territory', [
     'app.core',
+    'blocks.logger',
+    'ui.router'
   ]);
 }
