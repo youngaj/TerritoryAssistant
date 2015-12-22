@@ -4,29 +4,32 @@ namespace app.territory {
 	interface ITerritory{
 		num: string;
 		units: Array<Unit>;
-		status: string;		
+		status: TerritoryStatus;
+        type: TerritoryType;
+        checkouts: Array<Checkout>;		
 	}
 		
 	export class Territory implements ITerritory {
 		num: string;
 		units: Array<Unit>;
-        status: string;
+		status: TerritoryStatus;
+        type: TerritoryType;
+        checkouts: Array<Checkout>;		
 	}
 	
-	interface IUnit{
-		type: string;
-		name: string;
-	}
-	
-	export /**
-	 * Unit
-	 */
-	class Unit implements IUnit {
-		type: string;
-		name: string;
-		
-		constructor() {
-			
-		}
-	}
+    class TerritoryStatus{
+        name: string;        
+    }
+    
+    export class Checkout {
+        publisher: string;
+        dateOut: Date;
+        dateIn: Date;
+    }
+    
+    enum TerritoryType {
+        Business,
+        Residential,
+        Appartment
+    }
 }
