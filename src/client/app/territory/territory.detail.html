@@ -6,11 +6,11 @@
           <div ht-widget-header title="{{vm.title}}"></div>
           <div class="widget-content user">
               <h1>Territory Detail Page</h1>
-              <pre>{{ vm.territory | json}} </pre>
               {{vm.territory.num}}
                 <br /> {{vm.territory.description}}
                 <br /> {{vm.territory.status}}
                 <br />
+              <button ng-click="vm.checkOut(vm.territory)" class="btn btn-default">Check-out</button>
               <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
           </div>
           <div class="widget-foot">

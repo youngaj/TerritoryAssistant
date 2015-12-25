@@ -13,8 +13,10 @@ namespace app.territory {
     static $inject: Array<string> = ['$state', 'logger', 'TerritoryService'];
     constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
       //this.logger.info('Activated Territory View');
-      this.territories = territoryService.getAll();
-      console.log(this.territories);
+      let vm = this;
+      territoryService.getAll().then(function (data:any){
+          vm.territories = data;
+      });
     }
     
     public goToDetail(num:number){

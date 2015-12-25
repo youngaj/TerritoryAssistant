@@ -8,9 +8,9 @@ namespace app.territory {
     export class TerritoryDetailController implements ITerritoryDetailVm {
         territory: Territory = new Territory();
 
-        static $inject: Array<string> = ['logger', 'TerritoryService'];
-        constructor(private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
-            let num = '42';
+        static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
+        constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
+            let num = $stateParams.num;
             let vm = this;
             //this.logger.info('Activated Territory View');
             this.getByNum(num).then(function (data:any){
