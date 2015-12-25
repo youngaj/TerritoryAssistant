@@ -34,7 +34,8 @@
 
 <body>
   <div>
-    <div ng-include="'app/layout/shell.html'"></div>
+   
+    <div ui-view></div>
     <div id="splash-page" ng-show="showSplash">
       <div class="page-splash">
         <div class="page-splash-message">
@@ -100,6 +101,8 @@
   <script src="/src/client/app/territory/territory.js"></script>
   <script src="/src/client/app/territory/territory.route.js"></script>
   <script src="/src/client/app/territory/territoryDetail.controller.js"></script>
+  <script src="/src/client/app/territory/territoryService.js"></script>
+  <script src="/src/client/app/territory/unit.js"></script>
   <script src="/src/client/app/widgets/ht-widget-header.directive.js"></script>
   <!-- endinject -->
 

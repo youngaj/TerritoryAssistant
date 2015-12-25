@@ -10,18 +10,18 @@ namespace app.territory {
     territories: Array<any> = [];
     
     
-    static $inject: Array<string> = ['$state', 'logger', '$firebaseArray', 'firebaseDataService'];
-    constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public $firebaseArray:any, public firebaseDataService:any) {
+    static $inject: Array<string> = ['$state', 'logger', 'TerritoryService'];
+    constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
       this.logger.info('Activated Territory View');
-      // this.territories = firebaseDataService.getMockData();
-      this.territories = $firebaseArray(firebaseDataService.territories.child('territories'));
+      this.territories = territoryService.getAll();
     }
     
     public goToDetail(num:number){
         this.logger.info('Button clicked ' + num);
-        console.log("button clicked");
-        this.$state.go('territoryDetail', {id:num});
-        this.logger.info("Should be going to detail page");
+        this.territoryService.goToDetail(num);
+        // console.log("button clicked");
+        // this.$state.go('territoryDetail', {id:num});
+        // this.logger.info("Should be going to detail page");
     }
         
   }

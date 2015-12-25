@@ -19,15 +19,11 @@ namespace app.territory {
       {
         state: 'territory',
         config: {
-          url: '/territory',
+          url: '/',
           templateUrl: 'app/territory/territory.html',
           controller: 'TerritoryController',
           controllerAs: 'vm',
-          title: 'territory',
-          settings: {
-            nav: 1,
-            content: '<i class="fa fa-territory"></i> Territory'
-          }
+          title: 'Territory'
         }
       },
       {
@@ -37,11 +33,7 @@ namespace app.territory {
           templateUrl: 'app/territory/territory.detail.html',
           controller: 'TerritoryDetailController',
           controllerAs: 'vm',
-          title: 'territory',
-          settings: {
-            nav: 1,
-            content: '<i class="fa fa-territory"></i> Territory Detail'
-          }
+          title: 'Territory Detail'
         }
       }
     ];

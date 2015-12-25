@@ -8,11 +8,15 @@ namespace app.territory {
   export class TerritoryDetailController implements ITerritoryDetailVm {
     territory: Territory = new Territory();
     
-    static $inject: Array<string> = ['logger', '$firebaseArray', 'firebaseDataService'];
-    constructor(private logger: blocks.logger.Logger, public $firebaseArray:any, public firebaseDataService:any) {
+    static $inject: Array<string> = ['logger', 'TerritoryService'];
+    constructor(private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
       this.logger.info('Activated Territory View');
-      
-    }        
+    }
+    
+    public goToList(){
+        this.logger.info("go to list called");
+        this.territoryService.goToList();       
+    }
   }
 
   angular
