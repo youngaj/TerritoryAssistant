@@ -7,6 +7,7 @@ namespace app.territory {
 
     export class TerritoryDetailController implements ITerritoryDetailVm {
         territory: Territory = new Territory();
+        territoryTypes: Array<string> =  [undefined,'Apartment', 'Business', 'Residential']
 
         static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
         constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
@@ -36,6 +37,10 @@ namespace app.territory {
         getByNum(num: string) {
             this.logger.info("get by num -> " + num);
             return this.territoryService.getByNum(num);
+        }
+        
+        save(territory:Territory){
+            return this.territoryService.save(territory);
         }
     }
 

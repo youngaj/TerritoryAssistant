@@ -5,7 +5,7 @@ namespace app.territory {
 		num: string;
 		units: Array<Unit>;
 		status: string;
-        type: TerritoryType;
+        type: string;
         checkouts: Array<Checkout>;		
 	}
 		
@@ -13,8 +13,14 @@ namespace app.territory {
 		num: string;
 		units: Array<Unit>;
 		status: string;
-        type: TerritoryType;
-        checkouts: Array<Checkout>;		
+        type: string;
+        checkouts: Array<Checkout>;	
+        
+        constructor(){
+            this.units = [];
+            this.checkouts = [];
+            this.type = "Avaiable";
+        }	
 	}
             
     export class Checkout {
@@ -23,9 +29,4 @@ namespace app.territory {
         dateIn: number;
     }
         
-    enum TerritoryType {
-        Business,
-        Residential,
-        Appartment
-    }
 }

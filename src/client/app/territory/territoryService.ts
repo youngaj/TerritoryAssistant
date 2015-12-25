@@ -34,7 +34,7 @@ namespace app.territory {
                 if (angular.isUndefined(record.checkouts)) {
                     record.checkouts = [];
                 }
-                record.checkouts = record.checkouts.map(function(entry) {
+                record.checkouts = record.checkouts.map(function(entry:Checkout) {
                     if (angular.isUndefined(entry.dateIn)) {
                         entry.dateIn = checkout.dateIn;
                     }
@@ -75,12 +75,28 @@ namespace app.territory {
         }
 
         save(territory: Territory) {
-            this.getAll().then(function(list: any) {
-                console.log("Total list", list);
-                console.log("territory", territory);
-                list.$save(territory);
-            })
+            let vm = this;
+            this.getByNum(territory.num).then(function(record: any) {
+                record = vm.parseTerritory(record, territory);
+                vm.territories.$save(record);                
+                vm.logger.success("Saving Territory");
+            });
+            
         }
+        
+        private parseTerritory(original:Territory, updated:Territory){
+            original.checkouts = ValueOrDefault(updated.checkouts, []);
+            original.num = ValueOrDefault(updated.num, '1');
+            original.status = ValueOrDefault(updated.status, 'Avaiable');
+            original.type = ValueOrDefault(updated.type, '');;
+            original.units = ValueOrDefault(updated.units, []);
+
+            function ValueOrDefault(value:any, fallback:any){
+                return angular.isDefined(value) ? value : fallback;
+            }
+            return original;
+        }
+        
     }
 
     angular

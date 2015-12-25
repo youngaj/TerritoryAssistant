@@ -1,11 +1,18 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="territory in vm.territories">
+        <div class="col-md-12">
+            <button class=btn btn-default ng-click="vm.filterTerritory()"> All </button>
+            <button class=btn btn-default ng-click="vm.filterTerritory('Apartment')"> Apartments Only </button>
+            <button class=btn btn-default ng-click="vm.filterTerritory('Residential')"> Residential Only </button>
+            <button class=btn btn-default ng-click="vm.filterTerritory('Business')"> Business Only </button>
+            <button class=btn btn-default ng-click="vm.filterTerritory('Letter')"> Letter Writing Only </button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="territory in vm.filteredTerritories">
             <div class="well" style="margin:5px; padding:5px;" ng-click="vm.goToDetail(territory.num)">
                 {{territory.num}}
                 <br /> {{territory.description}}
                 <br /> {{territory.status}}
-                <br />
+                <br /> {{territory.type}}
             </div>
         </div>
     </div>
