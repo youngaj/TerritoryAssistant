@@ -12,12 +12,13 @@ namespace app.territory {
     
     static $inject: Array<string> = ['$state', 'logger', 'TerritoryService'];
     constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
-      this.logger.info('Activated Territory View');
+      //this.logger.info('Activated Territory View');
       this.territories = territoryService.getAll();
+      console.log(this.territories);
     }
     
     public goToDetail(num:number){
-        this.logger.info('Button clicked ' + num);
+        //this.logger.info('Button clicked ' + num);
         this.territoryService.goToDetail(num);
         // console.log("button clicked");
         // this.$state.go('territoryDetail', {id:num});

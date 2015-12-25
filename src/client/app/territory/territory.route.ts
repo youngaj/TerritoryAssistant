@@ -29,7 +29,7 @@ namespace app.territory {
       {
         state: 'territoryDetail',
         config: {
-          url: '/territory/:id',
+          url: '/territory/:num',
           templateUrl: 'app/territory/territory.detail.html',
           controller: 'TerritoryDetailController',
           controllerAs: 'vm',
