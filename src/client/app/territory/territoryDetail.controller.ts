@@ -19,6 +19,15 @@ namespace app.territory {
             });
         }
 
+        checkIn(territory:Territory, checkout: Checkout){
+            this.territoryService.checkIn(territory, checkout);
+        }
+
+        checkOut(territory:Territory){
+            let currUser = {id: 1, name: "Andre"};
+            this.territoryService.checkOut(currUser, territory);
+        }
+
         public goToList() {
             //this.logger.info("go to list called");
             this.territoryService.goToList();

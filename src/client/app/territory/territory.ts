@@ -4,7 +4,7 @@ namespace app.territory {
 	interface ITerritory{
 		num: string;
 		units: Array<Unit>;
-		status: TerritoryStatus;
+		status: string;
         type: TerritoryType;
         checkouts: Array<Checkout>;		
 	}
@@ -12,21 +12,17 @@ namespace app.territory {
 	export class Territory implements ITerritory {
 		num: string;
 		units: Array<Unit>;
-		status: TerritoryStatus;
+		status: string;
         type: TerritoryType;
         checkouts: Array<Checkout>;		
 	}
-	
-    class TerritoryStatus{
-        name: string;        
-    }
-    
+            
     export class Checkout {
         publisher: string;
-        dateOut: Date;
-        dateIn: Date;
+        dateOut: number;
+        dateIn: number;
     }
-    
+        
     enum TerritoryType {
         Business,
         Residential,

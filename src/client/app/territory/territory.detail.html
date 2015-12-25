@@ -1,23 +1,30 @@
-<section class="mainbar">
-  <section class="matter">
-    <div class="container">
-      <div class="row">
-        <div class="widget wviolet">
-          <div ht-widget-header title="{{vm.title}}"></div>
-          <div class="widget-content user">
-              <h1>Territory Detail Page</h1>
-              {{vm.territory.num}}
-                <br /> {{vm.territory.description}}
-                <br /> {{vm.territory.status}}
-                <br />
-              <button ng-click="vm.checkOut(vm.territory)" class="btn btn-default">Check-out</button>
-              <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
-          </div>
-          <div class="widget-foot">
-            <div class="clearfix"></div>
-          </div>
+<div class="container">
+    <div ht-widget-header title="{{vm.title}}"></div>
+    <h1>Territory Detail Page</h1> {{vm.territory.num}}
+    <br /> {{vm.territory.description}}
+    <br /> {{vm.territory.status}}
+    <br />
+    <button ng-click="vm.checkOut(vm.territory)" class="btn btn-primary">Check-out</button>
+    <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
+    <!--<pre>{{vm.territory | json }}</pre>-->
+    <div class="well" ng-repeat="checkout in vm.territory.checkouts">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <label>Publisher</label>
+                <br> {{checkout.publisher}}
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <label>Date Out</label>
+                <br> {{checkout.dateOut | date:'medium' }}
+            </div>
+            <div class="col-xs-6 col-sm-4 ">
+                <label>Date In</label>
+                <br> {{checkout.dateIn | date:'medium' }}
+            </div>
+            <br>
         </div>
-      </div>
+        <div class="row">
+            <button ng-click="vm.checkIn(vm.territory, checkout)" class="btn btn-primary pull-right">Check-In</button>
+        </div>
     </div>
-  </section>
-</section>
+</div>
