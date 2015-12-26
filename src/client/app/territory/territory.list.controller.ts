@@ -5,10 +5,17 @@ namespace app.territory {
     title: string;
   }
   
-  export class TerritoryController2 implements ITerritoryVm {
+  export class TerritoryController implements ITerritoryVm {
     title: string = 'Territory';
     territories: Array<any> = [];
     filteredTerritories: Array<Territory> = [];
+    territoryTypes = [
+        {label:'All', value:undefined},
+        {label:'Apartment', value:'Apartment'},
+        {label:'Residential', value:'Residential'},
+        {label:'Business', value:'Business'},
+        {label:'Letter', value:'Letter'}
+    ];
     
     static $inject: Array<string> = ['$state', 'logger', 'TerritoryService'];
     constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
@@ -41,5 +48,5 @@ namespace app.territory {
 
   angular
     .module('app.territory')
-    .controller('TerritoryController', TerritoryController2);
+    .controller('TerritoryController', TerritoryController);
 }

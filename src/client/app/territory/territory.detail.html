@@ -1,16 +1,41 @@
 <div class="container">
-    <div ht-widget-header title="{{vm.title}}"></div>
-    <h1>Territory Detail Page</h1> {{vm.territory.num}}
-    <br /> {{vm.territory.description}}
-    <br /> {{vm.territory.status}}
-    <br />
-    <select ng-model="vm.territory.type" ng-options="item as item for item in vm.territoryTypes"></select>
+    <h1>Territory Detail Page</h1>
+    <div class="list-group">
+        <div class="col-xs-12">
+            <div class="list-group-item well">
+                <div class="row-content">
+                    <h4 class="list-group-item-heading">
+                            Territory #{{vm.territory.num}}
+                        </h4>
+
+                    <p class="list-group-item-text">
+                        <span class="col-xs-6">{{vm.territory.description}}</span>
+                        <span class="col-xs-6">{{vm.territory.status}}</span>
+                        <span class="col-xs-6">{{vm.territory.type}}</span>
+                        <span class="col-xs-6">    
+                            <select ng-model="vm.territory.type" ng-options="item as item for item in vm.territoryTypes"></select>
+                        </span>
+                    </p>
+                </div>
+                <div class="row-picture pull-left">
+                    <img class="circle pull-left" src="/src/client/images/mapIcon.png" alt="icon" ng-click="vm.goToDetail(territory.num)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <td class="col-xs-4">
+            <button ng-click="vm.save(vm.territory)" class="btn btn-primary btn-raised">Save</button>
+        </td>
+        <td class="col-xs-4">
+            <button ng-click="vm.checkOut(vm.territory)" class="btn btn-small btn-default">Check-out</button>
+        </td>
+        <td class="col-xs-4">
+            <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
+        </td>
+    </div>
     <br>
-    <button ng-click="vm.save(vm.territory)" class="btn btn-primary">Save</button>
-    <button ng-click="vm.checkOut(vm.territory)" class="btn btn-small btn-default">Check-out</button>
-    <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
-    <!--<pre>{{vm.territory | json }}</pre>-->
-    <div class="well" ng-repeat="checkout in vm.territory.checkouts">
+    <div class="well well-sm" ng-repeat="checkout in vm.territory.checkouts | orderBy:'-dateOut'">
         <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <label>Publisher</label>
@@ -27,7 +52,9 @@
             <br>
         </div>
         <div class="row">
-            <button ng-click="vm.checkIn(vm.territory, checkout)" class="btn btn-primary pull-right">Check-In</button>
+            <div class="col-sm-12 pull-right">                
+                <button ng-click="vm.checkIn(vm.territory, checkout)" class="btn btn-default btn-sm btn-raised">Check-In</button>
+            </div>
         </div>
     </div>
 </div>

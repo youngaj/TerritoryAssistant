@@ -20,7 +20,7 @@ namespace app.territory {
         state: 'territory',
         config: {
           url: '/',
-          templateUrl: 'app/territory/territory.html',
+          templateUrl: 'app/territory/territory.list.html',
           controller: 'TerritoryController',
           controllerAs: 'vm',
           title: 'Territory'

@@ -98,11 +98,11 @@
   <script src="/src/client/app/layout/shell.controller.js"></script>
   <script src="/src/client/app/layout/sidebar.controller.js"></script>
   <script src="/src/client/app/territory/address.js"></script>
-  <script src="/src/client/app/territory/territory.controller.js"></script>
+  <script src="/src/client/app/territory/territory.detail.controller.js"></script>
   <script src="/src/client/app/territory/territory.js"></script>
+  <script src="/src/client/app/territory/territory.list.controller.js"></script>
   <script src="/src/client/app/territory/territory.route.js"></script>
-  <script src="/src/client/app/territory/territoryDetail.controller.js"></script>
-  <script src="/src/client/app/territory/territoryService.js"></script>
+  <script src="/src/client/app/territory/territory.service.js"></script>
   <script src="/src/client/app/territory/unit.js"></script>
   <script src="/src/client/app/widgets/ht-widget-header.directive.js"></script>
   <!-- endinject -->
@@ -110,6 +110,11 @@
   <!-- inject:templates:js -->
   <!-- endinject -->
   <!-- endbuild -->
+  <script>
+        $(function() {
+            $.material.init();
+        });      
+  </script>
 </body>
 
 </html>
