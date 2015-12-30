@@ -3,10 +3,18 @@ namespace app.territory {
 
     export class TerritoryService {
         territories: any;
+        territoryTypes: Array<any>;
 
         static $inject: Array<string> = ['$state', 'logger', '$firebaseArray', 'firebaseDataService'];
         constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public $firebaseArray: any, public firebaseDataService: any) {
             //this.logger.info('Activated Territory View');
+            this.territoryTypes = [
+                {label:'All', value:undefined},
+                {label:'Apartment', value:'Apartment', unit:'Building'},
+                {label:'Residential', value:'Residential', unit:'Block'},
+                {label:'Business', value:'Business', unit:'Block'},
+                {label:'Letter', value:'Letter'}
+            ];
         }
 
         checkOut(user: any, territory: Territory) {
@@ -17,7 +25,7 @@ namespace app.territory {
             
             territory = this.ensureCheckoutIsDefined(territory);
             territory.checkouts.push(checkout);
-            territory.status = "Checked_Out";
+            territory.status = "Checked Out";
             this.save(territory);
             vm.logger.success(user.name + " checking out Territory");
         }
@@ -38,14 +46,13 @@ namespace app.territory {
                 }
                 return entry;
             });
-            territory.status = "Checked_In";
+            territory.status = "Available";
             this.save(territory);
 
             this.logger.success(" check in Territory");
         }
 
         goToDetail(num: number) {
-            //this.logger.info('Going to Territory Detail Page ' + num);
             this.$state.go('territoryDetail', { num: num });
         }
 
@@ -53,21 +60,6 @@ namespace app.territory {
             return this.$firebaseArray(this.firebaseDataService.territories.child('territories')).$loaded();
         }
 
-//         getByNum(num: string) {
-//             let vm = this;
-//             return this.getAll().then(function(data: any) {
-//                 vm.territories = data;
-//                 let territory = new Territory();
-//                 let i = 0;
-//                 for (i = 0; i < data.length; i++) {
-//                     if (data[i].num === num) {
-//                         return data[i];
-//                     }
-//                 }
-//                 return territory;
-//             });
-//         }
-// 
         getByNum(data:any, num: string) {
             let vm = this;
             let territory = new Territory();
@@ -87,9 +79,9 @@ namespace app.territory {
         save(territory: Territory) {
             let vm = this;
             this.getAll().then(function (data:any){
-                let record = this.getByNum(data, territory.num);
+                let record = vm.getByNum(data, territory.num);
                 record = vm.parseTerritory(record, territory);
-                vm.territories.$save(record);                
+                data.$save(record);                
                 vm.logger.success("Saving Territory");                
             });
             

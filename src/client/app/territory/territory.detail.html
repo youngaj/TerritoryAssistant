@@ -11,9 +11,9 @@
                     <p class="list-group-item-text">
                         <span class="col-xs-6">{{vm.territory.description}}</span>
                         <span class="col-xs-6">{{vm.territory.status}}</span>
-                        <span class="col-xs-6">{{vm.territory.type}}</span>
+                        <span class="col-xs-6">{{vm.territory.type.unit}}</span>
                         <span class="col-xs-6">    
-                            <select ng-model="vm.territory.type" ng-options="item as item for item in vm.territoryTypes"></select>
+                            <select ng-model="vm.territory.type" ng-options="item as item.label for item in vm.territoryTypes"></select>
                         </span>
                     </p>
                 </div>

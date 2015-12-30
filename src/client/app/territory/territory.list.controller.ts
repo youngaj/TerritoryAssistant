@@ -9,18 +9,13 @@ namespace app.territory {
     title: string = 'Territory';
     territories: Array<any> = [];
     filteredTerritories: Array<Territory> = [];
-    territoryTypes = [
-        {label:'All', value:undefined},
-        {label:'Apartment', value:'Apartment'},
-        {label:'Residential', value:'Residential'},
-        {label:'Business', value:'Business'},
-        {label:'Letter', value:'Letter'}
-    ];
+    territoryTypes: Array<any> = [];
     
     static $inject: Array<string> = ['$state', 'logger', 'TerritoryService'];
     constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public territoryService:TerritoryService) {
       //this.logger.info('Activated Territory View');
       let vm = this;
+      this.territoryTypes = territoryService.territoryTypes;
       territoryService.getAll().then(function (data:any){
           vm.territories = data;
           vm.filteredTerritories = data;

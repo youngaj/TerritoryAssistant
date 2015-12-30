@@ -7,15 +7,26 @@
                 </button>
             </div>
             <div class="btn-group btn-group-justified btn-group-raised">
-            <a href="javascript:void(0)" class="btn " ng-repeat="type in vm.territoryTypes" ng-click="vm.filterTerritory(type.value)">
+                <a href="javascript:void(0)" class="btn " ng-repeat="type in vm.territoryTypes" ng-click="vm.filterTerritory(type.value)">
                 {{type.label}}
                 <div class="ripple-container"></div>
             </a>
-          </div>
+            </div>
         </div>
+        <p class="bs-component">
+            <a href="javascript:void(0)" class="btn btn-raised active"><code>.active</code><div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-default">Default<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-primary">Primary<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-success">Success<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-info">Info<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-warning">Warning<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-danger">Danger<div class="ripple-container"></div></a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-link">Link</a>
+            <div id="source-button" class="btn btn-primary btn-xs" style="display: block;">&lt; &gt;</div>
+        </p>
     </div>
     <div class="list-group">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="territory in vm.filteredTerritories">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-repeat="territory in vm.filteredTerritories">
             <div class="list-group-item well">
                 <div class="row-content">
                     <h4 class="list-group-item-heading">
@@ -23,9 +34,9 @@
                         </h4>
 
                     <p class="list-group-item-text">
-                        <span class="col-xs-6">{{territory.description}}</span>
-                        <span class="col-xs-6">{{territory.status}}</span>
                         <span class="col-xs-6">{{territory.type}}</span>
+                        <span class="col-xs-6">{{territory.status}}</span>
+                        <span class="col-xs-12">{{territory.description}}</span>
                     </p>
                 </div>
                 <div class="row-picture pull-left">

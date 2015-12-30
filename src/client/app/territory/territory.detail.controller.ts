@@ -7,17 +7,15 @@ namespace app.territory {
 
     export class TerritoryDetailController implements ITerritoryDetailVm {
         territory: Territory = new Territory();
-        territoryTypes: Array<string> =  [undefined,'Apartment', 'Business', 'Residential']
+        territoryTypes: Array<any> =  [];
 
         static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
         constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
             let num = $stateParams.num;
             let vm = this;
             //this.logger.info('Activated Territory View');
-            this.getByNum(num).then(function (data:any){
-                vm.territory = data;    
-                console.log("Get by Num returns ",vm.territory);
-            });
+            this.getByNum(num);
+            this.territoryTypes = territoryService.territoryTypes;
         }
 
         checkIn(territory:Territory, checkout: Checkout){
@@ -35,8 +33,11 @@ namespace app.territory {
         }
 
         getByNum(num: string) {
-            this.logger.info("get by num -> " + num);
-            return this.territoryService.getByNum(num);
+            let vm = this;
+            this.territoryService.getAll().then(function (list:any){                
+                vm.territory = vm.territoryService.getByNum(list, num);    
+                console.log("Get by Num returns ",vm.territory);
+            });
         }
         
         save(territory:Territory){
