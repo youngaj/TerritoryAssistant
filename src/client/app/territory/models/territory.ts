@@ -3,7 +3,7 @@ namespace app.territory {
 	
 	interface ITerritory{
 		num: string;
-		units: Array<Unit>;
+		units: Array<string>;
 		status: string;
         type: string;
         checkouts: Array<Checkout>;		
@@ -11,7 +11,7 @@ namespace app.territory {
 		
 	export class Territory implements ITerritory {
 		num: string;
-		units: Array<Unit>;
+		units: Array<string>;
 		status: string;
         type: string;
         checkouts: Array<Checkout>;	

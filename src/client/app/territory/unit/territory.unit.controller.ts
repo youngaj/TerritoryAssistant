@@ -1,11 +1,11 @@
 namespace app.territory {
     'use strict';
 
-    interface ITerritoryDetailVm {
+    interface ITerritoryUnitVm {
         territory: Territory;
     }
 
-    export class TerritoryDetailController implements ITerritoryDetailVm {
+    export class TerritoryUnitController implements ITerritoryUnitVm {
         territory: Territory = new Territory();
         territoryTypes: Array<any> =  [];
 
@@ -13,30 +13,26 @@ namespace app.territory {
         constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
             let num = $stateParams.num;
             let vm = this;
-            //this.logger.info('Activated Territory View');
-            this.getByNum(num);
+            this.getByNum(num).then(function (data:Territory){
+                logger.info("Get by Num returns ", data);
+                vm.territory = data;
+            });
             this.territoryTypes = territoryService.territoryTypes;
         }
 
-        checkIn(territory:Territory, checkout: Checkout){
-            this.territoryService.checkIn(territory, checkout);
-        }
-
-        checkOut(territory:Territory){
-            let currUser = {id: 1, name: "Andre"};
-            this.territoryService.checkOut(currUser, territory);
+        public goToDetail(territory:Territory) {
+            this.territoryService.goToDetail(territory.num);
         }
 
         public goToList() {
-            //this.logger.info("go to list called");
             this.territoryService.goToList();
         }
-
+        
         getByNum(num: string) {
             let vm = this;
-            this.territoryService.getAll().then(function (list:any){                
-                vm.territory = vm.territoryService.getByNum(list, num);    
-                console.log("Get by Num returns ",vm.territory);
+            return this.territoryService.getAll().then(function (list:any){                
+                let foundTerritory = vm.territoryService.getByNum(list, num);
+                return foundTerritory;
             });
         }
         
@@ -47,5 +43,5 @@ namespace app.territory {
 
     angular
         .module('app.territory')
-        .controller('TerritoryDetailController', TerritoryDetailController);
+        .controller('TerritoryUnitController', TerritoryUnitController);
 }

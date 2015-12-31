@@ -13,7 +13,7 @@
                         <span class="col-xs-6">{{vm.territory.status}}</span>
                         <span class="col-xs-6">{{vm.territory.type.unit}}</span>
                         <span class="col-xs-6">    
-                            <select ng-model="vm.territory.type" ng-options="item as item.label for item in vm.territoryTypes"></select>
+                            <select ng-model="vm.territory.type" ng-options="item as item.label for item in vm.territoryTypes track by item.value"></select>
                         </span>
                     </p>
                 </div>
@@ -34,27 +34,35 @@
             <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
         </td>
     </div>
-    <br>
-    <div class="well well-sm" ng-repeat="checkout in vm.territory.checkouts | orderBy:'-dateOut'">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4">
-                <label>Publisher</label>
-                <br> {{checkout.publisher}}
-            </div>
-            <div class="col-xs-6 col-sm-4">
-                <label>Date Out</label>
-                <br> {{checkout.dateOut | date:'medium' }}
-            </div>
-            <div class="col-xs-6 col-sm-4 ">
-                <label>Date In</label>
-                <br> {{checkout.dateIn | date:'medium' }}
-            </div>
-            <br>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 pull-right">                
-                <button ng-click="vm.checkIn(vm.territory, checkout)" class="btn btn-default btn-sm btn-raised">Check-In</button>
-            </div>
+    <div class="well row">
+        Addresses<br>
+        <div class="col-xs-6 panel" ng-repeat="unit in vm.territory.units" ng-click="vm.goToUnit(vm.territory.num, unit)">
+            {{vm.territory.type.unit}} {{unit}}
         </div>
     </div>
+    <div class="well row">
+        Add Address<br>
+        <div class="col-xs-2">
+            Num: <input type="input" ng-model="vm.newAddress.num">
+        </div>
+        <div class="col-xs-2">
+            Street: <input type="input" ng-model="vm.newAddress.street">
+        </div>
+        <div class="col-xs-2">
+            Territory: <input type="input" ng-model="vm.newAddress.territoryNum">
+        </div>
+        <div class="col-xs-2">
+            {{vm.territory.type.unit}}: <input type="input" ng-model="vm.newAddress.unit">
+        </div>
+        
+        <div class="col-xs-12 panel">
+            <pre>{{vm.newAddress | json }}<pre>
+        </div>
+        <div class="row">
+            <td class="col-xs-12">
+                <button ng-click="vm.save(vm.territory)" class="btn btn-primary btn-raised">Save</button>
+            </td>
+        </div>
+    </div>
+    
 </div>

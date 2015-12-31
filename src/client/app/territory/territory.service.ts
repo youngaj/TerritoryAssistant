@@ -52,8 +52,13 @@ namespace app.territory {
             this.logger.success(" check in Territory");
         }
 
-        goToDetail(num: number) {
+        goToDetail(num: string) {
             this.$state.go('territoryDetail', { num: num });
+        }
+        
+        goToUnit(num: string, unit:string){
+            this.logger.info("Hello From GoToUnit");
+            this.$state.go('territoryUnit', { num: num, unit:unit });            
         }
 
         getAll() {

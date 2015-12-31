@@ -20,7 +20,7 @@ namespace app.territory {
         state: 'territory',
         config: {
           url: '/',
-          templateUrl: 'app/territory/territory.list.html',
+          templateUrl: 'app/territory/list/territory.list.html',
           controller: 'TerritoryController',
           controllerAs: 'vm',
           title: 'Territory'
@@ -30,10 +30,20 @@ namespace app.territory {
         state: 'territoryDetail',
         config: {
           url: '/territory/:num',
-          templateUrl: 'app/territory/territory.detail.html',
+          templateUrl: 'app/territory/detail/territory.detail.html',
           controller: 'TerritoryDetailController',
           controllerAs: 'vm',
           title: 'Territory Detail'
+        }
+      },
+      {
+        state: 'territoryUnit',
+        config: {
+          url: '/territory/:num/Unit/:unit',
+          templateUrl: 'app/territory/unit/territory.unit.html',
+          controller: 'TerritoryUnitController',
+          controllerAs: 'vm',
+          title: 'Territory Unit'
         }
       }
     ];
