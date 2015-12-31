@@ -36,8 +36,8 @@
     </div>
     <div class="well row">
         Addresses<br>
-        <div class="col-xs-6 panel" ng-repeat="unit in vm.territory.units" ng-click="vm.goToUnit(vm.territory.num, unit)">
-            {{vm.territory.type.unit}} {{unit}}
+        <div class="col-xs-6 panel" ng-repeat="address in vm.addresses">
+            {{vm.territory.type.unit}} {{address|json}}
         </div>
     </div>
     <div class="well row">
@@ -60,7 +60,7 @@
         </div>
         <div class="row">
             <td class="col-xs-12">
-                <button ng-click="vm.save(vm.territory)" class="btn btn-primary btn-raised">Save</button>
+                <button ng-click="vm.saveAddress(vm.newAddress)" class="btn btn-primary btn-raised">Add Address</button>
             </td>
         </div>
     </div>

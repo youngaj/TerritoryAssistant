@@ -1,4 +1,6 @@
 /// <reference path="angular-ui-router/angular-ui-router.d.ts" />
+/// <reference path="firebase/firebase.d.ts" />
+/// <reference path="angularfire/angularfire.d.ts" />
 /// <reference path="angularjs/angular-animate.d.ts" />
 /// <reference path="angularjs/angular-mocks.d.ts" />
 /// <reference path="angularjs/angular-sanitize.d.ts" />

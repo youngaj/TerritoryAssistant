@@ -1,3 +1,4 @@
+
 namespace app.territory {
     'use strict';
 
@@ -8,14 +9,19 @@ namespace app.territory {
     export class TerritoryUnitController implements ITerritoryUnitVm {
         territory: Territory = new Territory();
         territoryTypes: Array<any> =  [];
+        //addresses: AngularFireArray;
+        addresses:any;
 
-        static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
-        constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
+        static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
+        constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any) {
             let num = $stateParams.num;
             let vm = this;
             this.getByNum(num).then(function (data:Territory){
                 logger.info("Get by Num returns ", data);
                 vm.territory = data;
+            });
+            territoryService.getAddresses().then(function (data: any){
+               vm.addresses = data; 
             });
             this.territoryTypes = territoryService.territoryTypes;
         }
@@ -36,8 +42,11 @@ namespace app.territory {
             });
         }
         
-        save(territory:Territory){
-            return this.territoryService.save(territory);
+        saveAddress(address:Address){
+            this.logger.info("Save Address function called ", address);
+            this.addresses.$add(angular.copy(address));
+            this.logger.info("Appended to address list " + this.addresses.length);
+            this.addresses.$save(angular.copy(address));
         }
     }
 

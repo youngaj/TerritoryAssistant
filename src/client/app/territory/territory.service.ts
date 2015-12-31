@@ -6,8 +6,8 @@ namespace app.territory {
         territoryTypes: Array<any>;
 
         static $inject: Array<string> = ['$state', 'logger', '$firebaseArray', 'firebaseDataService'];
-        constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, public $firebaseArray: any, public firebaseDataService: any) {
-            //this.logger.info('Activated Territory View');
+        constructor(private $state: ng.ui.IStateService, private logger: blocks.logger.Logger, 
+                    public $firebaseArray: AngularFireArrayService, public firebaseDataService: any) {
             this.territoryTypes = [
                 {label:'All', value:undefined},
                 {label:'Apartment', value:'Apartment', unit:'Building'},
@@ -59,6 +59,10 @@ namespace app.territory {
         goToUnit(num: string, unit:string){
             this.logger.info("Hello From GoToUnit");
             this.$state.go('territoryUnit', { num: num, unit:unit });            
+        }
+
+        getAddresses() {
+            return this.$firebaseArray(this.firebaseDataService.addresses.child('addresses')).$loaded();
         }
 
         getAll() {

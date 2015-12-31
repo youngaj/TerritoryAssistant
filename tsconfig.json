@@ -1,5 +1,16 @@
 {
 	"compilerOptions": {
-		"module": "commonjs"
-	}
+        "target": "es5",
+		"module": "commonjs",
+        "noImplicitAny": true,
+        "sourceMap": true
+	},
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./typings/firebase/firebase.d.ts",
+        "./typings/angularfire/angularfire.d.ts"
+    ]
 }
