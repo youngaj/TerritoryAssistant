@@ -25,19 +25,13 @@
     </div>
     <div class="row">
         <td class="col-xs-4">
-            <button ng-click="vm.save(vm.territory)" class="btn btn-primary btn-raised">Save</button>
-        </td>
-        <td class="col-xs-4">
-            <button ng-click="vm.checkOut(vm.territory)" class="btn btn-small btn-default">Check-out</button>
-        </td>
-        <td class="col-xs-4">
             <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
         </td>
     </div>
     <div class="well row">
         Addresses<br>
-        <div class="col-xs-6 panel" ng-repeat="address in vm.addresses">
-            {{vm.territory.type.unit}} {{address|json}}
+        <div class="col-xs-6" ng-repeat="address in vm.visableAddresses | orderBy">
+            {{address.num}} {{address.street}}
         </div>
     </div>
     <div class="well row">

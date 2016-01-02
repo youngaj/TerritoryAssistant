@@ -6,7 +6,8 @@ namespace app.territory{
     export class Address implements IAddress {
         num: string;
         street: string;
-        unit: Unit;
+        unit: string;
+        territoryNum:string;
         visits: Array<Visit>;
         Language: Array<string>
     }

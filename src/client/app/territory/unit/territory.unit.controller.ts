@@ -9,19 +9,22 @@ namespace app.territory {
     export class TerritoryUnitController implements ITerritoryUnitVm {
         territory: Territory = new Territory();
         territoryTypes: Array<any> =  [];
-        //addresses: AngularFireArray;
-        addresses:any;
+        addresses: AngularFireArray;
+        visableAddresses: AngularFireArray;
+        //addresses:any;
 
         static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
-        constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any) {
+        constructor(public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
+            let unit = $stateParams.unit;
             let vm = this;
             this.getByNum(num).then(function (data:Territory){
                 logger.info("Get by Num returns ", data);
                 vm.territory = data;
             });
             territoryService.getAddresses().then(function (data: any){
-               vm.addresses = data; 
+               vm.addresses = data;               
+               vm.visableAddresses = vm.filterAddresses(num, unit, data);               
             });
             this.territoryTypes = territoryService.territoryTypes;
         }
@@ -42,11 +45,19 @@ namespace app.territory {
             });
         }
         
+        private filterAddresses(num:string, unit:string, list:any){
+             return list.filter(function(address:Address){
+                   return address.num == num || address.unit == unit;
+               });
+        }
+        
         saveAddress(address:Address){
             this.logger.info("Save Address function called ", address);
             this.addresses.$add(angular.copy(address));
             this.logger.info("Appended to address list " + this.addresses.length);
             this.addresses.$save(angular.copy(address));
+            var unit = this.$stateParams.unit;
+            this.visableAddresses = this.filterAddresses(this.territory.num, unit, this.addresses)
         }
     }
 
