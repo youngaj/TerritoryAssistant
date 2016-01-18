@@ -13,20 +13,28 @@ namespace app.territory {
         visableAddresses: AngularFireArray;
         //addresses:any;
 
-        static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
-        constructor(public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
+        static $inject: Array<string> = ['$scope', '$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
+        constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
             let unit = $stateParams.unit;
             let vm = this;
+            $scope.$watch('vm.addresses', (newValue, oldValue) => {
+                if (angular.isDefined(newValue)){
+                    vm.logger.info("vm.addresses updated");
+                    vm.visableAddresses = vm.filterAddresses(num, unit, newValue);                  
+                }
+            }, true);
+
             this.getByNum(num).then(function (data:Territory){
-                logger.info("Get by Num returns ", data);
                 vm.territory = data;
             });
-            territoryService.getAddresses().then(function (data: any){
+            territoryService.getAddresses().then(function (data: AngularFireArray){
                vm.addresses = data;               
-               vm.visableAddresses = vm.filterAddresses(num, unit, data);               
             });
-            this.territoryTypes = territoryService.territoryTypes;
+            this.territoryTypes = territoryService.territoryTypes;            
+        }
+
+        private addAddressWatcher($scope :ng.IScope, vm:TerritoryUnitController){
         }
 
         public goToDetail(territory:Territory) {
@@ -51,14 +59,13 @@ namespace app.territory {
                });
         }
         
-        saveAddress(address:Address){
-            this.logger.info("Save Address function called ", address);
-            this.addresses.$add(angular.copy(address));
-            this.logger.info("Appended to address list " + this.addresses.length);
-            this.addresses.$save(angular.copy(address));
-            var unit = this.$stateParams.unit;
-            this.visableAddresses = this.filterAddresses(this.territory.num, unit, this.addresses)
-        }
+        saveAddress(address:Address, addresses:AngularFireArray){
+            var vm = this;
+            return addresses.$add(angular.copy(address)).then(function (){
+                vm.logger.info("Appended to address list " + vm.addresses.length);
+                addresses.$save(angular.copy(address));
+            });
+        }        
     }
 
     angular

@@ -5,7 +5,7 @@ namespace app.territory {
 		num: string;
 		units: Array<string>;
 		status: string;
-        type: string;
+        type: TerritoryType;
         checkouts: Array<Checkout>;		
 	}
 		
@@ -13,13 +13,14 @@ namespace app.territory {
 		num: string;
 		units: Array<string>;
 		status: string;
-        type: string;
+        type: TerritoryType;
         checkouts: Array<Checkout>;	
         
         constructor(){
             this.units = [];
             this.checkouts = [];
-            this.type = "Avaiable";
+            this.status = "Avaiable";
+            this.type = new TerritoryType();
         }	
 	}
             
@@ -27,6 +28,12 @@ namespace app.territory {
         publisher: string;
         dateOut: number;
         dateIn: number;
+    }
+    
+    export class TerritoryType{
+        label:string;
+        value: string;
+        unit: Unit;   
     }
         
 }

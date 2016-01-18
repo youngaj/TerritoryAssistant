@@ -29,8 +29,8 @@
         </td>
     </div>
     <div class="well row">
-        Addresses<br>
-        <div class="col-xs-6" ng-repeat="address in vm.visableAddresses | orderBy">
+        Addresses:<br>
+        <div class="col-xs-12" ng-repeat="address in vm.visableAddresses">
             {{address.num}} {{address.street}}
         </div>
     </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="row">
             <td class="col-xs-12">
-                <button ng-click="vm.saveAddress(vm.newAddress)" class="btn btn-primary btn-raised">Add Address</button>
+                <button ng-click="vm.saveAddress(vm.newAddress, vm.addresses)" class="btn btn-primary btn-raised">Add Address</button>
             </td>
         </div>
     </div>

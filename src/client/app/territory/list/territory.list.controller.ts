@@ -26,7 +26,7 @@ namespace app.territory {
         let vm = this;
         this.territoryService.getAll().then(function (data:any){
             vm.filteredTerritories = data.filter( (territory:Territory) => {
-                return angular.isUndefined(type) || territory.type === type;
+                return angular.isUndefined(type) || territory.type.label === type;
             })  
         });   
     }
