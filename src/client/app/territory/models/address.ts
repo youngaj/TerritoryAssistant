@@ -13,8 +13,9 @@ namespace app.territory{
     }
     
     class Visit{
+        checkOutNum: number;
         date: Date;
-        state: string
+        state: string;
     }
 
     class LanguageEntry{

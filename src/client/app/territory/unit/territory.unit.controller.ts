@@ -17,6 +17,7 @@ namespace app.territory {
         constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
             let unit = $stateParams.unit;
+            let checkout = $stateParams.checkout;
             let vm = this;
             $scope.$watch('vm.addresses', (newValue, oldValue) => {
                 if (angular.isDefined(newValue)){

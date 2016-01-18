@@ -25,6 +25,7 @@ namespace app.territory {
 	}
             
     export class Checkout {
+        id: number;
         publisher: string;
         dateOut: number;
         dateIn: number;

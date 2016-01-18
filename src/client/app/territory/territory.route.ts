@@ -39,7 +39,7 @@ namespace app.territory {
       {
         state: 'territoryUnit',
         config: {
-          url: '/territory/:num/Unit/:unit',
+          url: '/territory/:num/Unit/:unit/CheckOut/:checkout',
           templateUrl: 'app/territory/unit/territory.unit.html',
           controller: 'TerritoryUnitController',
           controllerAs: 'vm',

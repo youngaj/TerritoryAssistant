@@ -24,6 +24,7 @@ namespace app.territory {
             checkout.publisher = user.name;
             
             territory = this.ensureCheckoutIsDefined(territory);
+            checkout.id = territory.checkouts.length+1;
             territory.checkouts.push(checkout);
             territory.status = "Checked Out";
             this.save(territory);
@@ -56,9 +57,9 @@ namespace app.territory {
             this.$state.go('territoryDetail', { num: num });
         }
         
-        goToUnit(num: string, unit:string){
+        goToUnit(num: string, unit:string, checkout:number){
             this.logger.info("Hello From GoToUnit");
-            this.$state.go('territoryUnit', { num: num, unit:unit });            
+            this.$state.go('territoryUnit', { num: num, unit:unit, checkout:checkout });            
         }
 
         getAddresses() {

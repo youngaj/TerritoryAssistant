@@ -34,23 +34,22 @@
             <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
         </td>
     </div>
-    <div class="well row">
-        <div class="col-xs-6 panel" ng-repeat="unit in vm.territory.units" ng-click="vm.goToUnit(vm.territory.num, unit)">
-            {{vm.territory.type.unit}} {{unit}}
-        </div>
-    </div>
     <br>
     <div class="well well-sm" ng-repeat="checkout in vm.territory.checkouts | orderBy:'-dateOut'">
         <div class="row">
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-3">
+                <label>ID</label>
+                <br> {{checkout.id}}
+            </div>
+            <div class="col-xs-12 col-sm-3">
                 <label>Publisher</label>
                 <br> {{checkout.publisher}}
             </div>
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-6 col-sm-3">
                 <label>Date Out</label>
                 <br> {{checkout.dateOut | date:'medium' }}
             </div>
-            <div class="col-xs-6 col-sm-4 ">
+            <div class="col-xs-6 col-sm-3">
                 <label>Date In</label>
                 <br> {{checkout.dateIn | date:'medium' }}
             </div>
@@ -61,5 +60,13 @@
                 <button ng-click="vm.checkIn(vm.territory, checkout)" class="btn btn-default btn-sm btn-raised">Check-In</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-6" ng-repeat="unit in vm.territory.units" ng-click="vm.goToUnit(vm.territory.num, unit, checkout.id)">
+                <div class="panel">
+                    {{vm.territory.type.unit}} {{unit}}
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

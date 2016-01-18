@@ -37,8 +37,8 @@ namespace app.territory {
             this.territoryService.goToList();
         }
         
-        public goToUnit(num:string, unit:string){
-            this.territoryService.goToUnit(num, unit);
+        public goToUnit(num:string, unit:string, checkout:number){
+            this.territoryService.goToUnit(num, unit, checkout);
         }
 
         getByNum(num: string) {
