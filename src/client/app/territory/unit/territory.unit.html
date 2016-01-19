@@ -31,7 +31,21 @@
     <div class="well row">
         Addresses:<br>
         <div class="col-xs-12" ng-repeat="address in vm.visableAddresses">
-            {{address.num}} {{address.street}}
+            {{address.num}} {{address.street}} 
+                Last visit:</br>
+            <div ng-if="address.displayVisit === false"> 
+                    {{address.lastVisit.checkoutId}}
+                    {{address.lastVisit.date}}
+                    {{address.lastVisit.state}}
+                    {{address.lastVisit.language}}
+            </div>
+            <button ng-click="address.displayVisit = true">Add Visit</button>
+            <div ng-if="address.displayVisit === true">
+                <select ng-model="vm.newVisit.state" ng-options="item as item for item in vm.visitStates"></select>
+                <select ng-model="vm.newVisit.language" ng-options="item as item for item in vm.languages"></select>
+                <textarea ng-model="vm.newVisit.notes"></textarea>
+                <button class="btn btn-default" ng-click="vm.saveVisit(address, vm.newVisit, vm.checkOutId)">Save Visit</button>
+            </div>
         </div>
     </div>
     <div class="well row">

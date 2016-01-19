@@ -8,18 +8,16 @@ namespace app.territory{
         street: string;
         unit: string;
         territoryNum:string;
+        lastVisit:Visit;
         visits: Array<Visit>;
         Language: Array<string>
     }
     
-    class Visit{
-        checkOutNum: number;
+    export class Visit{
+        checkOutId: number;
         date: Date;
         state: string;
-    }
-
-    class LanguageEntry{
         language: string;
-        date: Date;
+        notes: string;
     }
 }

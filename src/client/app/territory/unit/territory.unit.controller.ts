@@ -9,22 +9,26 @@ namespace app.territory {
     export class TerritoryUnitController implements ITerritoryUnitVm {
         territory: Territory = new Territory();
         territoryTypes: Array<any> =  [];
+        languages: Array<string> = ["English", "Spanish", "French"];
+        visitStates: Array<string> = ["Not Home", "Interested", "No Trespassing", "Locked"];
         addresses: AngularFireArray;
         visableAddresses: AngularFireArray;
+        checkOutId:number;
         //addresses:any;
 
         static $inject: Array<string> = ['$scope', '$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
         constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
             let unit = $stateParams.unit;
-            let checkout = $stateParams.checkout;
+            this.checkOutId = $stateParams.checkout;
             let vm = this;
-            $scope.$watch('vm.addresses', (newValue, oldValue) => {
+            $scope.$watchCollection('vm.addresses', (newValue, oldValue) => {
                 if (angular.isDefined(newValue)){
-                    vm.logger.info("vm.addresses updated");
+                    vm.logger.info("vm.addresses updated", newValue);
+                    vm.logger.log(newValue);
                     vm.visableAddresses = vm.filterAddresses(num, unit, newValue);                  
                 }
-            }, true);
+            });
 
             this.getByNum(num).then(function (data:Territory){
                 vm.territory = data;
@@ -44,6 +48,19 @@ namespace app.territory {
 
         public goToList() {
             this.territoryService.goToList();
+        }
+        
+        public saveVisit(address:Address, visit:Visit, checkOutId:number){            
+            visit.checkOutId = checkOutId;
+            visit.date = new Date();
+            address.lastVisit = visit;
+            if(!address.visits)
+                address.visits = [];
+            address.visits = address.visits.concat(visit);
+            var vm = this;
+            vm.addresses.$save(address).then(function(){
+               vm.logger.log("Visit saved"); 
+            });
         }
         
         getByNum(num: string) {
