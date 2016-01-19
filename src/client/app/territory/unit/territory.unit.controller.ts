@@ -52,14 +52,14 @@ namespace app.territory {
         
         public saveVisit(address:Address, visit:Visit, checkOutId:number){            
             visit.checkOutId = checkOutId;
-            visit.date = new Date();
+            visit.date = Date.now();
             address.lastVisit = visit;
             if(!address.visits)
                 address.visits = [];
             address.visits = address.visits.concat(visit);
             var vm = this;
             vm.addresses.$save(address).then(function(){
-               vm.logger.log("Visit saved"); 
+               vm.logger.log("Visit saved", visit); 
             });
         }
         

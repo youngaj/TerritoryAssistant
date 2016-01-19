@@ -32,20 +32,22 @@
         Addresses:<br>
         <div class="col-xs-12" ng-repeat="address in vm.visableAddresses">
             {{address.num}} {{address.street}} 
+            <div ng-if="address != vm.selectedAddress"> 
                 Last visit:</br>
-            <div ng-if="address.displayVisit === false"> 
-                    {{address.lastVisit.checkoutId}}
-                    {{address.lastVisit.date}}
-                    {{address.lastVisit.state}}
-                    {{address.lastVisit.language}}
+                    </br>CheckOut: {{address.lastVisit.checkoutId}}
+                    </br>Visit Date: {{address.lastVisit.date | date:'medium'}}
+                    </br>State: {{address.lastVisit.state}}
+                    </br>Language: {{address.lastVisit.language}}
+                    </br>Notes : {{address.lastVisit.notes}}
             </div>
-            <button ng-click="address.displayVisit = true">Add Visit</button>
-            <div ng-if="address.displayVisit === true">
-                <select ng-model="vm.newVisit.state" ng-options="item as item for item in vm.visitStates"></select>
-                <select ng-model="vm.newVisit.language" ng-options="item as item for item in vm.languages"></select>
-                <textarea ng-model="vm.newVisit.notes"></textarea>
-                <button class="btn btn-default" ng-click="vm.saveVisit(address, vm.newVisit, vm.checkOutId)">Save Visit</button>
+            <button ng-click="vm.selectedAddress = address">Add Visit</button>
+            <div ng-if="vm.selectedAddress === address">
+                <select ng-model="address.lastVisit.state" ng-options="item as item for item in vm.visitStates"></select>
+                <select ng-model="address.lastVisit.language" ng-options="item as item for item in vm.languages"></select>
+                <textarea ng-model="address.lastVisit.notes"></textarea>
+                <button class="btn btn-default" ng-click="vm.saveVisit(address, address.lastVisit, vm.checkOutId)">Save Visit</button>
             </div>
+            <hr><br>
         </div>
     </div>
     <div class="well row">
