@@ -17,8 +17,9 @@ namespace app.territory {
         unit:string;
         //addresses:any;
 
-        static $inject: Array<string> = ['$scope', '$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
-        constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
+        static $inject: Array<string> = ['$scope', '$stateParams', 'logger', 'TerritoryService', 'AddressService', 'firebaseDataService'];
+        constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, 
+                    public territoryService: TerritoryService, public addressService: AddressService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
             this.unit = $stateParams.unit;
             this.checkOutId = $stateParams.checkout;
@@ -34,7 +35,7 @@ namespace app.territory {
             this.getByNum(num).then(function (data:Territory){
                 vm.territory = data;
             });
-            territoryService.getAddresses().then(function (data: AngularFireArray){
+            addressService.getAll().then(function (data: AngularFireArray){
                 vm.addresses = data;               
             });
             this.territoryTypes = territoryService.territoryTypes;            
@@ -51,7 +52,7 @@ namespace app.territory {
             this.territoryService.goToList();
         }
         
-        public saveVisit(address:Address, visit:Visit, checkOutId:number){            
+        public saveVisit(address:Address, visit:Visit, checkOutId:string){            
             visit.checkOutId = checkOutId;
             visit.date = Date.now();
             address.lastVisit = visit;

@@ -7,36 +7,65 @@ namespace app.territory {
 
     export class TerritoryDetailController implements ITerritoryDetailVm {
         territory: Territory = new Territory();
+        private checkOuts:Array<CheckOut> = [];
+        territoryCheckOuts:Array<CheckOut> = [];
         territoryTypes: Array<any> =  [];
         state = {
             isHistoryDisplayed:false
         };
 
-        static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
-        constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
+        static $inject: Array<string> = ['$stateParams', '$scope', 'logger', 'TerritoryService', 'CheckOutService'];
+        constructor($stateParams: any, private $scope: ng.IScope, private logger: blocks.logger.Logger, private territoryService: TerritoryService, private checkOutService: CheckOutService) {
             let num = $stateParams.num;
             let vm = this;
             //this.logger.info('Activated Territory View');
-            this.getByNum(num).then(function (data:Territory){
+            this.setUpWatchers($scope, num);
+            this.getCheckOuts()
+            this.getByNum(num).then(function(data: Territory) {
                 data.units = [
-                    "1","2","3","4","5","6"
+                    "1", "2", "3", "4", "5", "6"
                 ];
                 vm.territory = data;
             });
             this.territoryTypes = territoryService.territoryTypes;
         }
+        
+        private getCheckOuts() {
+            let vm = this;
+            this.checkOutService.getAll().then(function(checkOutData: any) {
+                vm.checkOuts = checkOutData;
+            });
+        }
+        
+        private setUpWatchers($scope: ng.IScope, num:string){
+            let vm = this;
+            $scope.$watchCollection('vm.checkOuts', (newValue, oldValue) => {
+                if (angular.isDefined(newValue)) {
+                    vm.logger.log(newValue);
+                    vm.territoryCheckOuts = vm.filterCheckOuts(num, newValue);
+                }
+            });
+        }
 
-        checkIn(territory:Territory, checkout: Checkout){
-            this.territoryService.checkIn(territory, checkout);
+        private filterCheckOuts(territoryNum:string, allCheckOuts:Array<CheckOut>){
+            var filteredCheckOuts:Array<CheckOut> = [];
+            angular.forEach(allCheckOuts, function(checkOut: CheckOut) {
+                if (checkOut.territoryNum === territoryNum)
+                    filteredCheckOuts.push(checkOut);
+            }); 
+            return filteredCheckOuts;
+        }
+
+        checkIn(territory:Territory, checkout: CheckOut){
+            this.checkOutService.checkIn(territory, checkout);
         }
 
         checkOut(territory:Territory){
             let currUser = {id: 1, name: "Andre"};
-            this.territoryService.checkOut(currUser, territory);
+            this.checkOutService.checkOut(currUser, territory, this.territoryCheckOuts.length);
         }
 
         public goToList() {
-            //this.logger.info("go to list called");
             this.territoryService.goToList();
         }
         
@@ -47,8 +76,13 @@ namespace app.territory {
         getByNum(num: string) {
             let vm = this;
             return this.territoryService.getAll().then(function (list:any){                
-                return vm.territoryService.getByNum(list, num);    
-                console.log("Get by Num returns ",vm.territory);
+                
+                let territory: Territory = vm.territoryService.getByNum(list, num);
+                if(!angular.isDefined(territory)){
+                    territory = new Territory();
+                    territory.num = num;
+                }   
+                return territory;
             });
         }
         

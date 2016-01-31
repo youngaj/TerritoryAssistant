@@ -9,6 +9,17 @@
             </div>
         </div>
     </div>
+    <div class=" well">
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="text" placeholder="Territory number" ng-model="vm.newTerritoryNum">            
+            </div>
+            <div class="col-xs-12">
+                <button ng-click="vm.add(vm.newTerritoryNum)" class="btn btn-primary btn-raised  pull-right">New Territory</button>          
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="list-group">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-repeat="territory in vm.filteredTerritories">
             <div class="list-group-item well" ng-click="vm.goToDetail(territory.num)">

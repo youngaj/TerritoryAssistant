@@ -15,8 +15,10 @@
       users: root.child('users'),
       emails: root.child('emails'),
       textMessages: root.child('textMessages'),
-      territories: root,
-      addresses:root.child('addresses'),
+      oldTerritories: root,
+      territories: root.child('territories'),
+      addresses: root.child('addresses'),
+      checkOuts: root.child('checkOuts')
     };
 
     return service;        

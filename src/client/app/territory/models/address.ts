@@ -14,7 +14,7 @@ namespace app.territory{
     }
     
     export class Visit{
-        checkOutId: number;
+        checkOutId: string;
         date: number;
         state: string;
         language: string;

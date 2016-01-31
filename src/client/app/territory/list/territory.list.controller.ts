@@ -31,14 +31,13 @@ namespace app.territory {
         });   
     }
     
-    public goToDetail(num:number){
-        //this.logger.info('Button clicked ' + num);
+    public goToDetail(num:string){
         this.territoryService.goToDetail(num);
-        // console.log("button clicked");
-        // this.$state.go('territoryDetail', {id:num});
-        // this.logger.info("Should be going to detail page");
     }
         
+   public add(territoryNum:string){
+       this.territoryService.goToDetail(territoryNum);
+   }
   }
 
   angular
