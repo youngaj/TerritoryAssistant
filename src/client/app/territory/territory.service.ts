@@ -22,6 +22,7 @@ namespace app.territory {
             let checkout = new Checkout();
             checkout.dateOut = Date.now();
             checkout.publisher = user.name;
+            checkout.isActive = true;
             
             territory = this.ensureCheckoutIsDefined(territory);
             checkout.id = territory.checkouts.length+1;
@@ -40,9 +41,10 @@ namespace app.territory {
 
         checkIn(territory: Territory, checkout: Checkout) {
             checkout.dateIn = Date.now();
+            checkout.isActive = false;
             territory = this.ensureCheckoutIsDefined(territory);
             territory.checkouts = territory.checkouts.map(function(entry:Checkout) {
-                if (angular.isUndefined(entry.dateIn)) {
+                if (angular.isUndefined(entry.dateIn) && entry.id === checkout.id) {
                     entry.dateIn = checkout.dateIn;
                 }
                 return entry;

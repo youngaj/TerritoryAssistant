@@ -14,19 +14,20 @@ namespace app.territory {
         addresses: AngularFireArray;
         visableAddresses: AngularFireArray;
         checkOutId:number;
+        unit:string;
         //addresses:any;
 
         static $inject: Array<string> = ['$scope', '$stateParams', 'logger', 'TerritoryService', 'firebaseDataService'];
         constructor(private $scope: ng.IScope, public $stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService, firebaseDataService: any, _:any) {
             let num = $stateParams.num;
-            let unit = $stateParams.unit;
+            this.unit = $stateParams.unit;
             this.checkOutId = $stateParams.checkout;
             let vm = this;
             $scope.$watchCollection('vm.addresses', (newValue, oldValue) => {
                 if (angular.isDefined(newValue)){
                     vm.logger.info("vm.addresses updated", newValue);
                     vm.logger.log(newValue);
-                    vm.visableAddresses = vm.filterAddresses(num, unit, newValue);                  
+                    vm.visableAddresses = vm.filterAddresses(num, vm.unit, newValue);  
                 }
             });
 
@@ -34,7 +35,7 @@ namespace app.territory {
                 vm.territory = data;
             });
             territoryService.getAddresses().then(function (data: AngularFireArray){
-               vm.addresses = data;               
+                vm.addresses = data;               
             });
             this.territoryTypes = territoryService.territoryTypes;            
         }
@@ -73,7 +74,7 @@ namespace app.territory {
         
         private filterAddresses(num:string, unit:string, list:any){
              return list.filter(function(address:Address){
-                   return address.num == num || address.unit == unit;
+                   return address.territoryNum == num && address.unit == unit;
                });
         }
         

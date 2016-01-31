@@ -1,31 +1,41 @@
 <div class="container">
-    <h1>Territory Detail Page</h1>
-    <div class="list-group">
+    <h1>
+        Territory #{{vm.territory.num}}
+        <br>
+        {{vm.territory.type.unit}}:{{vm.unit}}
+    </h1>
+    <div class="row">
         <div class="col-xs-12">
-            <div class="list-group-item well">
-                <div class="row-content">
-                    <h4 class="list-group-item-heading">
-                            Territory #{{vm.territory.num}}
-                        </h4>
-
-                    <p class="list-group-item-text">
-                        <span class="col-xs-6">{{vm.territory.description}}</span>
-                        <span class="col-xs-6">{{vm.territory.status}}</span>
-                        <span class="col-xs-6">{{vm.territory.type.unit}}</span>
-                        <span class="col-xs-6">    
-                            <select ng-model="vm.territory.type" ng-options="item as item.label for item in vm.territoryTypes track by item.value"></select>
-                        </span>
-                    </p>
-                </div>
-                <div class="row-picture pull-left">
-                    <img class="circle pull-left" src="/src/client/images/mapIcon.png" alt="icon" ng-click="vm.goToDetail(territory.num)">
-                </div>
-            </div>
+            <span class="col-xs-4">
+                Description: 
+            </span>
+            <span class="col-xs-8">
+                {{vm.territory.description}}
+            </span>
+            <span class="col-xs-4">
+                Type:    
+            </span>
+            <span class="col-xs-8">
+                {{vm.territory.type.value}}
+            </span>
+            <span class="col-xs-4">
+                {{vm.territory.type.unit}}: 
+            </span>
+            <span class="col-xs-8">
+                {{vm.unit}}
+            </span>
+            <span class="col-xs-4">
+                Status: 
+            </span>
+            <span class="col-xs-8" style="color:red">
+                {{vm.territory.status}}
+            </span>
         </div>
     </div>
     <div class="row">
         <td class="col-xs-4">
-            <button ng-click="vm.goToList()" class="btn btn-default">Go To List</button>
+            <button ng-click="vm.goToDetail(vm.territory)" class="btn btn-default btn-raised">Territory #{{vm.territory.num}}</button>
+            <button ng-click="vm.goToList()" class="btn btn-default btn-raised">Territory List</button>
         </td>
     </div>
     <div class="well row">
@@ -34,7 +44,7 @@
             {{address.num}} {{address.street}} 
             <div ng-if="address != vm.selectedAddress"> 
                 Last visit:</br>
-                    </br>CheckOut: {{address.lastVisit.checkoutId}}
+                    </br>CheckOut Id: {{address.lastVisit.checkOutId}}
                     </br>Visit Date: {{address.lastVisit.date | date:'medium'}}
                     </br>State: {{address.lastVisit.state}}
                     </br>Language: {{address.lastVisit.language}}

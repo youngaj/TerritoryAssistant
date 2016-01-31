@@ -8,6 +8,9 @@ namespace app.territory {
     export class TerritoryDetailController implements ITerritoryDetailVm {
         territory: Territory = new Territory();
         territoryTypes: Array<any> =  [];
+        state = {
+            isHistoryDisplayed:false
+        };
 
         static $inject: Array<string> = ['$stateParams', 'logger', 'TerritoryService'];
         constructor($stateParams:any, private logger: blocks.logger.Logger, public territoryService: TerritoryService) {
