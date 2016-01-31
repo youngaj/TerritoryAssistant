@@ -15,6 +15,9 @@ build
 .tmp
 src/**/*.map
 src/**/*.js
+!src/**/fireBaseData.service.js
+!src/**/*.spec.js
+!src/**/test-helpers/*.js
 
 # Ignore Test reporters
 ###################
