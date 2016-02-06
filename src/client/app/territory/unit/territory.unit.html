@@ -49,15 +49,18 @@
                     </br>State: {{address.lastVisit.state}}
                     </br>Language: {{address.lastVisit.language}}
                     </br>Notes : {{address.lastVisit.notes}}
+                <button ng-click="vm.selectedAddress = address">Add Visit</button>
             </div>
-            <button ng-click="vm.selectedAddress = address">Add Visit</button>
             <div ng-if="vm.selectedAddress === address">
-                <select ng-model="address.lastVisit.state" ng-options="item as item for item in vm.visitStates"></select>
-                <select ng-model="address.lastVisit.language" ng-options="item as item for item in vm.languages"></select>
-                <textarea ng-model="address.lastVisit.notes"></textarea>
-                <button class="btn btn-default" ng-click="vm.saveVisit(address, address.lastVisit, vm.checkOutId)">Save Visit</button>
+                State: <select ng-model="address.lastVisit.state" ng-options="item as item for item in vm.visitStates"></select>
+                <br>
+                Language:<select ng-model="address.lastVisit.language" ng-options="item as item for item in vm.languages"></select>
+                <br>
+                <textarea placeholder="Notes" ng-model="address.lastVisit.notes"></textarea>
+                <br>
+                <button class="btn btn-default btn-raised pull-right" ng-click="vm.saveVisit(address, address.lastVisit, vm.checkOutId)">Save Visit</button>
             </div>
-            <hr><br>
+            <br>
         </div>
     </div>
     <div class="well row">
